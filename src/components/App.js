@@ -8,10 +8,16 @@ export default class App extends React.Component {
     password: '',
     passwordRepeat: '',
     country: '',
+    gender: 'female',
+    agree: true,
   }
 
   onChangeInput = (event) => {
     this.setState({[event.target.name]: event.target.value});
+  }
+
+  onChangeCheckbox = (event) => {
+    this.setState({[event.target.name]: event.target.checked});
   }
 
   submit = (event) => {
@@ -77,6 +83,46 @@ export default class App extends React.Component {
             >
               {this.renderItemsOptions(countries)}
             </select>
+          </div>
+          <fieldset className="form-group">
+            <div>Gender</div>
+            <div className="form-check">
+              <input className="form-check-input"
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+                checked={this.state.gender === 'male'}
+                onChange={this.onChangeInput}
+              />
+              <label className="form-check-label" htmlFor="male">
+                Male
+              </label>
+            </div>
+            <div className="form-check">
+              <input className="form-check-input"
+                type="radio"
+                name="gender"
+                id="female"
+                value="female"
+                checked={this.state.gender === 'female'}
+                onChange={this.onChangeInput}
+              />
+              <label className="form-check-label" htmlFor="female">
+                Female
+              </label>
+            </div>
+          </fieldset>
+          <div className="form-check">
+            <input className="form-check-input"
+              type="checkbox"
+              id="agree"
+              name="agree"
+              value={this.state.agree}
+              onChange={this.onChangeCheckbox}
+              checked={this.state.agree}
+            />
+            <label className="form-check-label" htmlFor="agree">Agree</label>
           </div>
           <button type="submit" className="btn btn-primary w-100" onClick={this.submit}>
             Submit
