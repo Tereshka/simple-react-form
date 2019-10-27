@@ -1,5 +1,9 @@
 export default [
   {
+    id: 0,
+    name: "Russia"
+  },
+  {
     id: 1,
     name: "Ukraine"
   },
