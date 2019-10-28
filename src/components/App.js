@@ -11,6 +11,7 @@ export default class App extends React.Component {
     gender: 'female',
     agree: true,
     avatar: "",
+    errors: {}
   }
 
   onChangeInput = (event) => {
@@ -31,7 +32,18 @@ export default class App extends React.Component {
 
   submit = (event) => {
     event.preventDefault();
-    console.log(this.username.value, this.password.value);
+    const errors = {};
+    if (this.state.username.length < 5) {
+      errors.username = "Must be 5 characters or more";
+    }
+    if (!this.state.password) {
+      errors.password = "Required";
+    }
+    if (this.state.password !== this.state.passwordRepeat) {
+      errors.passwordRepeat = "Must be equal password";
+    }
+
+    this.setState({errors});
   }
 
   renderItemsOptions = (items) => {
@@ -56,6 +68,11 @@ export default class App extends React.Component {
               value={username}
               onChange={ this.onChangeInput }
             />
+            {
+              this.state.errors.username ? (
+                <div className="invalid-feedback">{this.state.errors.username}</div>
+              ) : null
+            }
           </div>
           <div className="form-group">
             <label>Password</label>
@@ -68,6 +85,11 @@ export default class App extends React.Component {
               value={password}
               onChange={this.onChangeInput}
             />
+            {
+              this.state.errors.password ? (
+                <div className="invalid-feedback">{this.state.errors.password}</div>
+              ) : null
+            }
           </div>
           <div className="form-group">
             <label>Repeat password</label>
@@ -80,6 +102,11 @@ export default class App extends React.Component {
               value={passwordRepeat}
               onChange={this.onChangeInput}
             />
+            {
+              this.state.errors.passwordRepeat ? (
+                <div className="invalid-feedback">{this.state.errors.passwordRepeat}</div>
+              ) : null
+            }
           </div>
           <div className="form-group">
             <label htmlFor="country">Country</label>
