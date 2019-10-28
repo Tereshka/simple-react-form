@@ -10,6 +10,7 @@ export default class App extends React.Component {
     country: '',
     gender: 'female',
     agree: true,
+    avatar: "",
   }
 
   onChangeInput = (event) => {
@@ -18,6 +19,14 @@ export default class App extends React.Component {
 
   onChangeCheckbox = (event) => {
     this.setState({[event.target.name]: event.target.checked});
+  }
+
+  onChangeAvatar = (event) => {
+    const reader = new FileReader();
+    reader.onload = event => {
+      this.setState({[event.target.name]: event.target.result});
+    }
+    reader.readAsDataURL(event.target.files[0]);
   }
 
   submit = (event) => {
@@ -113,6 +122,15 @@ export default class App extends React.Component {
               </label>
             </div>
           </fieldset>
+          <div className="form-group">
+            <label htmlFor="avatar">Avatar</label>
+            <input type="file"
+              className="form-control-file"
+              id="avatar"
+              name="avatar"
+              onChange={this.onChangeAvatar}
+            />
+          </div>
           <div className="form-check">
             <input className="form-check-input"
               type="checkbox"
@@ -122,7 +140,7 @@ export default class App extends React.Component {
               onChange={this.onChangeCheckbox}
               checked={this.state.agree}
             />
-            <label className="form-check-label" htmlFor="agree">Agree</label>
+            <label className="form-check-label" htmlFor="agree">Confirm sending data</label>
           </div>
           <button type="submit" className="btn btn-primary w-100" onClick={this.submit}>
             Submit
