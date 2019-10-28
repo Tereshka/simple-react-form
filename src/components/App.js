@@ -9,8 +9,9 @@ export default class App extends React.Component {
     passwordRepeat: '',
     country: '',
     gender: 'female',
-    agree: true,
+    agree: false,
     avatar: "",
+    age: 18,
     errors: {}
   }
 
@@ -28,6 +29,22 @@ export default class App extends React.Component {
       this.setState({[event.target.name]: event.target.result});
     }
     reader.readAsDataURL(event.target.files[0]);
+  }
+
+  incrementAge = () => {
+    this.setState((prevState, prevProps) => ({
+      age: prevState.age + 1
+    }), () => {
+      this.setState({errors: {age: this.state.age < 18 ? "You must be an adult" : ""}})
+    });
+  }
+
+  decrementAge = () => {
+    this.setState((prevState, prevProps) => ({
+      age: prevState.age - 1
+    }), () => {
+      this.setState({errors: {age: this.state.age < 18 ? "You must be an adult" : ""}})
+    });
   }
 
   submit = (event) => {
@@ -157,6 +174,25 @@ export default class App extends React.Component {
               name="avatar"
               onChange={this.onChangeAvatar}
             />
+          </div>
+          <div className="form-group">
+            <div><label>Age</label></div>
+            <div className="btn-group">
+              <button className="btn btn-secondary" type="button" onClick={this.decrementAge}>-</button>
+              <input className="form-control"
+                type="number"
+                placeholder="Enter age"
+                name="age"
+                value={this.state.age}
+                onChange={this.onChangeInput}
+              />
+              <button className="btn btn-secondary" type="button" onClick={this.incrementAge}>+</button>
+            </div>
+            {
+              this.state.errors.age ? (
+                <div className="invalid-feedback">{this.state.errors.age}</div>
+              ) : null
+            }
           </div>
           <div className="form-check">
             <input className="form-check-input"
