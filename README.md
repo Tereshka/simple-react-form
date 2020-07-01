@@ -1,6 +1,6 @@
 ## ReactWarriors Week 1: Form
 
-LiveDemo: https://tereshka.github.io/reactwarriors-forms
+LiveDemo: https://tereshka.github.io/simple-react-form
 
 To run project:
 
